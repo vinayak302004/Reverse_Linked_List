@@ -1,0 +1,50 @@
+# Using Stack
+
+class Solution 
+{
+    public ListNode reverseList(ListNode head) 
+    {
+        Stack<Integer> stack=new Stack<>();
+        while(head!=null)
+        {
+            stack.push(head.val);
+            head=head.next;
+        }
+        ListNode result=new ListNode(Integer.MIN_VALUE);
+        ListNode ptr=result;
+        while(!stack.isEmpty())
+        {
+            ptr.next=new ListNode(stack.pop());
+            ptr=ptr.next;
+        }
+        return result.next;
+    }
+}
+
+# Optimal Apprach
+
+class Solution 
+{
+    public ListNode reverseList(ListNode head) 
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        if(head.next==null)
+        {
+            return head;
+        }
+        ListNode preNode=null;
+        ListNode currNode=head;
+        while(currNode!=null)
+        {
+            ListNode nextNode=currNode.next;
+            currNode.next=preNode;
+            preNode=currNode;
+            currNode=nextNode;
+        }
+        head=preNode;
+        return head;
+    }
+}
