@@ -1,0 +1,67 @@
+# Using Stack
+
+class ListNode {
+public:
+    int val;
+    ListNode* next;
+
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        std::stack<int> stack;
+        
+        // Push all node values onto the stack
+        while (head != nullptr) {
+            stack.push(head->val);
+            head = head->next;
+        }
+
+        // Dummy node to simplify construction
+        ListNode* result = new ListNode(INT_MIN);
+        ListNode* ptr = result;
+
+        // Pop from stack to create reversed list
+        while (!stack.empty()) {
+            ptr->next = new ListNode(stack.top());
+            stack.pop();
+            ptr = ptr->next;
+        }
+
+        // Return the head of the new list
+        return result->next;
+    }
+};
+
+# Optimal Approach
+
+class ListNode {
+public:
+    int val;
+    ListNode* next;
+
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+
+        ListNode* preNode = nullptr;
+        ListNode* currNode = head;
+
+        while (currNode != nullptr) {
+            ListNode* nextNode = currNode->next;
+            currNode->next = preNode;
+            preNode = currNode;
+            currNode = nextNode;
+        }
+
+        return preNode;
+    }
+};
